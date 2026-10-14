@@ -45,5 +45,38 @@ namespace Dev_Bank.Tests
 
             Assert.Throws<ArgumentException>(() => conta.Depositar(valorInvalido));
         }
+        [Fact]
+        public void Sacar_ComSaldoSuficiente_DeveDiminuirSaldo()
+        {
+            // Arrange
+            var conta = new Dev_Bank.Domain.ContaBancaria("12345-6", "0001");
+            conta.Depositar(200.00m);
+           
+
+            // Act
+            conta.Sacar(50.00m);
+
+            // Assert
+            Assert.Equal(150.00m, conta.Saldo);
+        }
+        [Fact]
+        public void Sacar_ComValorInvalido_DeveLancarArgumentException()
+        {
+            // Arrange
+            var conta = new Dev_Bank.Domain.ContaBancaria("12345-6", "0001");
+           
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => conta.Sacar(50.00m));
+        }
+        [Fact]
+        public void Sacar_ComSaldoInsuficiente_DeveLancarInvalidOperationException()
+        {
+            // Arrange
+            var conta = new Dev_Bank.Domain.ContaBancaria("12345-6", "0001");
+           
+
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => conta.Sacar(150.00m));
+        }
     }
 }
