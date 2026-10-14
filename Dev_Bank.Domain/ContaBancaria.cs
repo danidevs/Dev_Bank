@@ -23,5 +23,12 @@ namespace Dev_Bank.Domain
             Agencia = agencia;
             Saldo = 0;
         }
+        public void Depositar(decimal valor)
+        {
+            if (valor <= 0)
+                throw new ArgumentException("O valor do depósito deve ser maior que zero.");
+
+            Saldo += valor;
+        }
     }
 }
